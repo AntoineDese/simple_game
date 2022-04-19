@@ -14,7 +14,7 @@ function init() {
   kategorieGeografia[1] = "Bieszczady";
   kategorieGeografia[2] = "Morze Bałtyckie";
 
-  var haslo = kategoriePrzyslowia;
+  var haslo = kategorieFilmy;
 
   var mode = "kategoria1";
 
@@ -42,6 +42,7 @@ function init() {
   });
 
   var wylosowane = haslo[Math.floor(Math.random() * haslo.length)];
+  console.log("haslo to:" + wylosowane);
 
   wylosowane = wylosowane.toUpperCase();
   var wylosowane1 = "";
@@ -51,7 +52,7 @@ function init() {
   var yes = new Audio("yes.wav");
   var no = new Audio("no.wav");
 
-  for (i = 0; i < dlugosc; i++) {
+  for (let i = 0; i < dlugosc; i++) {
     if (wylosowane.charAt(i) == " ") wylosowane1 = wylosowane1 + " ";
     else wylosowane1 = wylosowane1 + "-";
   }
@@ -59,8 +60,6 @@ function init() {
   function wypisz_wylosowane() {
     document.getElementById("plansza").innerHTML = wylosowane1;
   }
-
-  window.onload = start;
 
   var litery = new Array(35);
 
@@ -101,9 +100,19 @@ function init() {
   litery[34] = "Ź";
 
   function start() {
-    var tresc_diva = "";
+    for (let i = 0; i <= 34; i++) {
+      var element = `lit ${i}`;
+      var letterDiv = document.createElement("div");
+      letterDiv.id = element;
+      letterDiv.innerHTML = litery[i];
+      document.querySelector("#alfabet").appendChild(letterDiv);
+      letterDiv.addEventListener("click", function () {
+        sprawdz(i);
+      });
+    }
 
-    for (i = 0; i <= 34; i++) {
+    /*
+    for (let i = 0; i <= 34; i++) {
       var element = "lit" + i;
       tresc_diva =
         tresc_diva +
@@ -119,6 +128,7 @@ function init() {
     }
 
     document.getElementById("alfabet").innerHTML = tresc_diva;
+*/
 
     wypisz_wylosowane();
   }
@@ -129,18 +139,19 @@ function init() {
   };
 
   function sprawdz(nr) {
+    console.log("nr to", nr);
     var trafiona = false;
 
-    for (i = 0; i < dlugosc; i++) {
+    for (let i = 0; i < dlugosc; i++) {
       if (wylosowane.charAt(i) == litery[nr]) {
         wylosowane1 = wylosowane1.ustawZnak(i, litery[nr]);
         trafiona = true;
       }
     }
-
+    var element = `lit ${nr}`;
     if (trafiona == true) {
       yes.play();
-      var element = "lit" + nr;
+
       document.getElementById(element).style.background = "#003300";
       document.getElementById(element).style.color = "#00C000";
       document.getElementById(element).style.border = "3px solid #00C000";
@@ -149,7 +160,7 @@ function init() {
       wypisz_wylosowane();
     } else {
       no.play();
-      var element = "lit" + nr;
+
       document.getElementById(element).style.background = "#330000";
       document.getElementById(element).style.color = "#C00000";
       document.getElementById(element).style.border = "3px solid #C00000";
@@ -177,5 +188,6 @@ function init() {
         wylosowane +
         '<br /><br /><span class="reset" onclick="location.reload()">JESZCZE RAZ?</span>';
   }
+  start();
 }
 window.onload = init;

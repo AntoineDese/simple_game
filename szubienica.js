@@ -17,13 +17,34 @@ function init() {
   var haslo = kategorieFilmy;
 
   var mode = "kategoria1";
+  var wylosowane = haslo[Math.floor(Math.random() * haslo.length)];
 
+  function changer() {
+    wylosowane = haslo[Math.floor(Math.random() * haslo.length)];
+    wylosowane = wylosowane.toUpperCase();
+    wylosowane1 = "";
+    dlugosc = wylosowane.length;
+    ile_skuch = 0;
+    for (let i = 0; i < dlugosc; i++) {
+      if (wylosowane.charAt(i) == " ") wylosowane1 = wylosowane1 + " ";
+      else wylosowane1 = wylosowane1 + "-";
+      removeAllChildNodes(alfabet);
+      document.getElementById("szubienica").innerHTML =
+        '<img src="img/s0.jpg" alt=""></img>';
+      start();
+    }
+  }
   function onModeChange(newModeValue) {
     if (newModeValue === "kategoria1") {
       haslo = kategoriePrzyslowia;
+      changer();
     } else if (newModeValue === "kategoria2") {
       haslo = kategorieFilmy;
-    } else haslo = kategorieGeografia;
+      changer();
+    } else {
+      haslo = kategorieGeografia;
+      changer();
+    }
 
     mode = newModeValue;
   }
@@ -40,9 +61,6 @@ function init() {
   kategoria3.addEventListener("click", function () {
     onModeChange("kategoria3");
   });
-
-  var wylosowane = haslo[Math.floor(Math.random() * haslo.length)];
-  console.log("haslo to:" + wylosowane);
 
   wylosowane = wylosowane.toUpperCase();
   var wylosowane1 = "";
@@ -106,29 +124,14 @@ function init() {
       letterDiv.id = element;
       letterDiv.innerHTML = litery[i];
       document.querySelector("#alfabet").appendChild(letterDiv);
-      letterDiv.addEventListener("click", function () {
+      letterDiv.addEventListener("click", function (e) {
+        console.log("Event clock:", e);
+        e.target.disabled = true;
+        e.target.style.pointerEvents = "none";
+        //console.log(e.target);
         sprawdz(i);
       });
     }
-
-    /*
-    for (let i = 0; i <= 34; i++) {
-      var element = "lit" + i;
-      tresc_diva =
-        tresc_diva +
-        '<div class="litera" onclick="sprawdz(' +
-        i +
-        ')" id="' +
-        element +
-        '">' +
-        litery[i] +
-        "</div>";
-      if ((i + 1) % 7 == 0)
-        tresc_diva = tresc_diva + '<div style="clear:both;"></div>';
-    }
-
-    document.getElementById("alfabet").innerHTML = tresc_diva;
-*/
 
     wypisz_wylosowane();
   }
@@ -139,7 +142,6 @@ function init() {
   };
 
   function sprawdz(nr) {
-    console.log("nr to", nr);
     var trafiona = false;
 
     for (let i = 0; i < dlugosc; i++) {
@@ -188,6 +190,12 @@ function init() {
         wylosowane +
         '<br /><br /><span class="reset" onclick="location.reload()">JESZCZE RAZ?</span>';
   }
+  function removeAllChildNodes(alfabet) {
+    while (alfabet.firstChild) {
+      alfabet.removeChild(alfabet.firstChild);
+    }
+  }
   start();
 }
+
 window.onload = init;

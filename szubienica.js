@@ -150,24 +150,25 @@ function init() {
         trafiona = true;
       }
     }
-    var element = `lit ${nr}`;
-    if (trafiona == true) {
+    const elementId = `lit ${nr}`;
+
+    const letter = document.getElementById(elementId);
+    if (trafiona === true) {
       yes.play();
 
-      document.getElementById(element).style.background = "#003300";
-      document.getElementById(element).style.color = "#00C000";
-      document.getElementById(element).style.border = "3px solid #00C000";
-      document.getElementById(element).style.cursor = "default";
+      letter.style.background = "#003300";
+      letter.style.color = "#00C000";
+      letter.style.border = "3px solid #00C000";
+      letter.style.cursor = "default";
 
       wypisz_wylosowane();
     } else {
       no.play();
 
-      document.getElementById(element).style.background = "#330000";
-      document.getElementById(element).style.color = "#C00000";
-      document.getElementById(element).style.border = "3px solid #C00000";
-      document.getElementById(element).style.cursor = "default";
-      document.getElementById(element).setAttribute("onclick", ";");
+      letter.style.background = "#330000";
+      letter.style.color = "#C00000";
+      letter.style.border = "3px solid #C00000";
+      letter.style.cursor = "default";
 
       //skucha
       ile_skuch++;

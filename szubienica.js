@@ -1,23 +1,26 @@
 function init() {
-  var kategoriePrzyslowia = new Array(3);
-  kategoriePrzyslowia[0] = "Bez pracy nie ma kołaczy";
-  kategoriePrzyslowia[1] = "Jak Kuba Bogu tak Bóg Kubie";
-  kategoriePrzyslowia[2] = "Nadzieja umiera ostatnia";
+  const kategoriePrzyslowia = [
+    "Bez pracy nie ma kołaczy",
+    "Jak Kuba Bogu tak Bóg Kubie",
+    "Nadzieja umiera ostatnia",
+  ];
 
-  var kategorieFilmy = new Array(3);
-  kategorieFilmy[0] = "Kiler";
-  kategorieFilmy[1] = "Chłopaki nie płaczą";
-  kategorieFilmy[2] = "Titanic";
+  const kategorieFilmy = ["Kiler", "Chłopaki nie płaczą", "Titanic"];
 
-  var kategorieGeografia = new Array(3);
-  kategorieGeografia[0] = "Jezioro Gopło";
-  kategorieGeografia[1] = "Bieszczady";
-  kategorieGeografia[2] = "Morze Bałtyckie";
+  const kategorieGeografia = ["Jezioro Gopło", "Bieszczady", "Morze Bałtyckie"];
 
   var haslo = kategorieFilmy;
 
   var mode = "kategoria1";
   var wylosowane = haslo[Math.floor(Math.random() * haslo.length)];
+
+  function updateImage(src) {
+    contentElement = document.createElement("img");
+    contentElement.src = src;
+    const parent = document.querySelector("#szubienica");
+    removeAllChildNodes(parent);
+    parent.appendChild(contentElement);
+  }
 
   function changer() {
     wylosowane = haslo[Math.floor(Math.random() * haslo.length)];
@@ -79,43 +82,7 @@ function init() {
     document.getElementById("plansza").innerHTML = wylosowane1;
   }
 
-  var litery = new Array(35);
-
-  litery[0] = "A";
-  litery[1] = "Ą";
-  litery[2] = "B";
-  litery[3] = "C";
-  litery[4] = "Ć";
-  litery[5] = "D";
-  litery[6] = "E";
-  litery[7] = "Ę";
-  litery[8] = "F";
-  litery[9] = "G";
-  litery[10] = "H";
-  litery[11] = "I";
-  litery[12] = "J";
-  litery[13] = "K";
-  litery[14] = "L";
-  litery[15] = "Ł";
-  litery[16] = "M";
-  litery[17] = "N";
-  litery[18] = "Ń";
-  litery[19] = "O";
-  litery[20] = "Ó";
-  litery[21] = "P";
-  litery[22] = "Q";
-  litery[23] = "R";
-  litery[24] = "S";
-  litery[25] = "Ś";
-  litery[26] = "T";
-  litery[27] = "U";
-  litery[28] = "V";
-  litery[29] = "W";
-  litery[30] = "X";
-  litery[31] = "Y";
-  litery[32] = "Z";
-  litery[33] = "Ż";
-  litery[34] = "Ź";
+  const litery = "AĄBCĆDEĘFGHIJKLŁMNŃOÓPQRSŚTUVWXYZŻŹ";
 
   function start() {
     for (let i = 0; i <= 34; i++) {
@@ -173,29 +140,43 @@ function init() {
       //skucha
       ile_skuch++;
       var obraz = "img/s" + ile_skuch + ".jpg";
-      document.getElementById("szubienica").innerHTML =
-        '<img src="' + obraz + '" alt="" />';
+      updateImage(obraz);
     }
 
     //wygrana
     if (wylosowane == wylosowane1)
-      document.getElementById("alfabet").innerHTML =
-        "Tak jest! Podano prawidłowe hasło: " +
-        wylosowane +
-        '<br /><br /><span class="reset" onclick="location.reload()">JESZCZE RAZ?</span>';
+      updateResult("Tak jest! Podano prawidłowe hasło: " + wylosowane);
+
+    //  document.getElementById("alfabet").innerHTML =
+    //    "Tak jest! Podano prawidłowe hasło: " +
+    //    wylosowane +
+    //    '<br /><br /><span class="reset" onclick="location.reload()">JESZCZE RAZ?</span>';
 
     //przegrana
     if (ile_skuch >= 9)
-      document.getElementById("alfabet").innerHTML =
-        "Przegrana! Prawidłowe hasło: " +
-        wylosowane +
-        '<br /><br /><span class="reset" onclick="location.reload()">JESZCZE RAZ?</span>';
+      updateResult("Przegrana! Prawidłowe hasło: " + wylosowane);
+
+    // document.getElementById("alfabet").innerHTML =
+    //  "Przegrana! Prawidłowe hasło: " +
+    //  wylosowane +
+    //  '<br /><br /><span class="reset" onclick="location.reload()">JESZCZE RAZ?</span>';
   }
   function removeAllChildNodes(alfabet) {
     while (alfabet.firstChild) {
       alfabet.removeChild(alfabet.firstChild);
     }
   }
+  function updateResult(message) {
+    let strong = document.createElement("strong");
+    let button = document.createElement("button");
+    removeAllChildNodes(alfabet);
+    alfabet.appendChild(strong);
+    alfabet.appendChild(button);
+    button.id = "button";
+    strong.innerText = message;
+    button.innerText = "Zagraj jeszcze raz";
+  }
+
   start();
 }
 

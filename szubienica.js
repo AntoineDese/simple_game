@@ -176,8 +176,24 @@ function init() {
     strong.innerText = message;
     button.innerText = "Zagraj jeszcze raz";
   }
-
-  start();
+  /*
+function restart() {
+  if (kategoria1.checked == true){
+    onModeChange("kategoria1");
+  }
+  if else (kategoria2.checked == true){
+    onModeChange("kategoria2");
+  }
+  else {
+    onModeChange("kategoria3");
+  }
+  
 }
 
+    button.addEventListener("click", function () {
+
+  });
+*/
+  start();
+}
 window.onload = init;

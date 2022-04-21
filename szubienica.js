@@ -32,8 +32,8 @@ function init() {
       if (wylosowane.charAt(i) == " ") wylosowane1 = wylosowane1 + " ";
       else wylosowane1 = wylosowane1 + "-";
       removeAllChildNodes(alfabet);
-      document.getElementById("szubienica").innerHTML =
-        '<img src="img/s0.jpg" alt=""></img>';
+      updateImage("img/s0.jpg");
+
       start();
     }
   }
@@ -79,7 +79,7 @@ function init() {
   }
 
   function wypisz_wylosowane() {
-    document.getElementById("plansza").innerHTML = wylosowane1;
+    document.getElementById("plansza").innerText = wylosowane1;
   }
 
   const litery = "AĄBCĆDEĘFGHIJKLŁMNŃOÓPQRSŚTUVWXYZŻŹ";
@@ -89,7 +89,7 @@ function init() {
       var element = `lit ${i}`;
       var letterDiv = document.createElement("div");
       letterDiv.id = element;
-      letterDiv.innerHTML = litery[i];
+      letterDiv.innerText = litery[i];
       document.querySelector("#alfabet").appendChild(letterDiv);
       letterDiv.addEventListener("click", function (e) {
         console.log("Event clock:", e);
@@ -147,19 +147,9 @@ function init() {
     if (wylosowane == wylosowane1)
       updateResult("Tak jest! Podano prawidłowe hasło: " + wylosowane);
 
-    //  document.getElementById("alfabet").innerHTML =
-    //    "Tak jest! Podano prawidłowe hasło: " +
-    //    wylosowane +
-    //    '<br /><br /><span class="reset" onclick="location.reload()">JESZCZE RAZ?</span>';
-
     //przegrana
     if (ile_skuch >= 9)
       updateResult("Przegrana! Prawidłowe hasło: " + wylosowane);
-
-    // document.getElementById("alfabet").innerHTML =
-    //  "Przegrana! Prawidłowe hasło: " +
-    //  wylosowane +
-    //  '<br /><br /><span class="reset" onclick="location.reload()">JESZCZE RAZ?</span>';
   }
   function removeAllChildNodes(alfabet) {
     while (alfabet.firstChild) {
@@ -176,7 +166,6 @@ function init() {
     strong.innerText = message;
     button.innerText = "Zagraj jeszcze raz";
     button.addEventListener("click", function () {
-      // removeAllChildNodes(alfabet);
       changer();
     });
   }

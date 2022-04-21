@@ -175,25 +175,11 @@ function init() {
     button.id = "button";
     strong.innerText = message;
     button.innerText = "Zagraj jeszcze raz";
-  }
-  /*
-function restart() {
-  if (kategoria1.checked == true){
-    onModeChange("kategoria1");
-  }
-  if else (kategoria2.checked == true){
-    onModeChange("kategoria2");
-  }
-  else {
-    onModeChange("kategoria3");
-  }
-  
-}
-
     button.addEventListener("click", function () {
-
-  });
-*/
+      // removeAllChildNodes(alfabet);
+      changer();
+    });
+  }
   start();
 }
 window.onload = init;
